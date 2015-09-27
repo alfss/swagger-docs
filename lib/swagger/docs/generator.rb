@@ -7,6 +7,7 @@ module Swagger
         :api_file_path => "public/",
         :api_file_name => "api-docs.json",
         :base_path => "/",
+        :base_path_docs => "/",
         :clean_directory => false,
         :formatting => :pretty
       }
@@ -34,6 +35,7 @@ module Swagger
           resources = root.delete 'resources'
           root.merge!(config[:attributes] || {}) # merge custom user attributes like info
           # write the api-docs file
+          root["basePath"] = config[:base_path_docs]
           write_to_file("#{settings[:api_file_path]}/#{config[:api_file_name]}", root, config)
           # write the individual resource files
           resources.each do |resource|
